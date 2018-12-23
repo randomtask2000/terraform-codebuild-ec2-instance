@@ -4,7 +4,6 @@
 #########################
 # variables
 #########################
-variable "github_personal_access_token" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "aws_region" {}
@@ -103,14 +102,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
 }
 POLICY
 }
-    # ,
-    # {
-    #   "Action": [
-    #       "ssm:GetParameter"
-    #   ],
-    #   "Resource": "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/*",
-    #   "Effect": "Allow"
-    # }
+
 resource "aws_codebuild_project" "codebuild_project" {
   name          = "codebuild-project"
   description   = "Codebuild Project that builds a github repo"
@@ -128,14 +120,8 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    # image        = "aws/codebuild/nodejs:6.3.1"
     image        = "aws/codebuild/ubuntu-base:14.04"
     type         = "LINUX_CONTAINER"
-    
-    environment_variable {
-      "name"  = "GITHUB_PERSONAL_ACCESS_TOKEN"
-      "value" = "${var.github_personal_access_token}"
-    }
 
     environment_variable {
       "name"  = "AWS_ACCESS_KEY"
@@ -237,10 +223,6 @@ output "region" {
 }
 output "aws_instance_vpc_id" {
   value = "${var.vpc_id}"
-}
-
-output "githubtoken" {
-  value = "${var.github_personal_access_token}"
 }
 
 output "output_parameter" {
