@@ -11,6 +11,8 @@ variable "public_key" {}
 variable "vpc_id" {}
 variable "terraform_version" {}
 
+variable "s3_bucket" {}
+
 #########################
 # providers
 #########################
@@ -27,7 +29,7 @@ data "aws_subnet_ids" "selected" {
 # resources
 #########################
 resource "aws_s3_bucket" "codebuild_bucket" {
-  bucket = "randomtask2000-terraform-state"
+  bucket = "${var.s3_bucket}"
   acl    = "private"
   tags = {
     group = "codebuild"
@@ -147,10 +149,14 @@ resource "aws_codebuild_project" "codebuild_project" {
       "name"  = "VPC_ID"
       "value" = "${var.vpc_id}"
     }
-    
+
     environment_variable {
-      "name"  = "TERRAFORM_VERSION"
-      "value" = "0.10.3"
+      "name"  = "DESTROY_AFTER_APPLY"
+      "value" = true
+    }
+    environment_variable {
+      "name"  = "S3_BUCKET"
+      "value" = "${var.s3_bucket}"
     }
   }
 
@@ -160,11 +166,11 @@ resource "aws_codebuild_project" "codebuild_project" {
     git_clone_depth = 1
   }
 
-  # vpc_config {
-  #   vpc_id = "${data.aws_vpc.selected.id}"
-  #   subnets = ["${data.aws_subnet_ids.selected.ids}"]
-  #   security_group_ids = ["${aws_security_group.codebuild_ingress_egress.id}"]
-  # }
+  vpc_config {
+    vpc_id = "${data.aws_vpc.selected.id}"
+    subnets = ["${data.aws_subnet_ids.selected.ids}"]
+    security_group_ids = ["${aws_security_group.codebuild_ingress_egress.id}"]
+  }
 
   tags = {
     group = "codebuild"
