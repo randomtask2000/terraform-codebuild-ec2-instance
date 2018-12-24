@@ -25,6 +25,11 @@ variable "github_repo_to_be_build" {
   default = "https://github.com/randomtask2000/terraform_ec2_instance.git"
 }
 
+variable "codebuild_image" {
+  type = "string"
+  default = "aws/codebuild/ubuntu-base:14.04"
+}
+
 data "aws_caller_identity" "current" {}
 
 variable "s3_bucket" {}
@@ -152,7 +157,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/ubuntu-base:14.04"
+    image        = "${var.codebuild_image}"
     type         = "LINUX_CONTAINER"
 
     environment_variable {
@@ -270,4 +275,8 @@ output "aws_vpc_id" {
 
 output "account_id" {
   value = "${data.aws_caller_identity.current.account_id}"
+}
+
+output "s3_bucket" {
+  value = "${var.s3_bucket}"
 }
