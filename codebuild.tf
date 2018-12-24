@@ -31,11 +31,30 @@ data "aws_subnet_ids" "selected" {
 resource "aws_s3_bucket" "codebuild_bucket" {
   bucket = "${var.s3_bucket}"
   acl    = "private"
+  force_destroy = true
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect":"Allow",
+      "Action":["s3:GetObject"],
+      "Resource":["arn:aws:s3:::${var.s3_bucket}", "arn:aws:s3:::${var.s3_bucket}/*"],
+      "Principal": "*"
+      
+    }
+  ]
+}
+EOF
   tags = {
     group = "codebuild"
   }
 }
-
+# "Condition": {
+#         "StringEquals": {
+#           "aws:sourceVpce": "${aws_vpc_endpoint.s3.id}"
+#         }
+#       }
 resource "aws_iam_role" "codebuild_role" {
   name = "codebuild_role"
 
@@ -152,11 +171,17 @@ resource "aws_codebuild_project" "codebuild_project" {
 
     environment_variable {
       "name"  = "DESTROY_AFTER_APPLY"
-      "value" = "true"
+      "value" = "false"
     }
+
     environment_variable {
       "name"  = "S3_BUCKET"
       "value" = "${var.s3_bucket}"
+    }
+
+    environment_variable {
+      "name" = "DESTROY"
+      "value" = "true"
     }
   }
 
@@ -166,11 +191,12 @@ resource "aws_codebuild_project" "codebuild_project" {
     git_clone_depth = 1
   }
 
-  vpc_config {
-    vpc_id = "${data.aws_vpc.selected.id}"
-    subnets = ["${data.aws_subnet_ids.selected.ids}"]
-    security_group_ids = ["${aws_security_group.codebuild_ingress_egress.id}"]
-  }
+  # 
+  # vpc_config {
+  #   vpc_id = "${data.aws_vpc.selected.id}"
+  #   subnets = ["${data.aws_subnet_ids.selected.ids}"]
+  #   security_group_ids = ["${aws_security_group.codebuild_ingress_egress.id}"]
+  # }
 
   tags = {
     group = "codebuild"
