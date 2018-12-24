@@ -50,11 +50,6 @@ EOF
     group = "codebuild"
   }
 }
-# "Condition": {
-#         "StringEquals": {
-#           "aws:sourceVpce": "${aws_vpc_endpoint.s3.id}"
-#         }
-#       }
 resource "aws_iam_role" "codebuild_role" {
   name = "codebuild_role"
 
@@ -191,7 +186,7 @@ resource "aws_codebuild_project" "codebuild_project" {
     git_clone_depth = 1
   }
 
-  # 
+  # This needs more R&D
   # vpc_config {
   #   vpc_id = "${data.aws_vpc.selected.id}"
   #   subnets = ["${data.aws_subnet_ids.selected.ids}"]
