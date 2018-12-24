@@ -152,7 +152,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
     environment_variable {
       "name"  = "DESTROY_AFTER_APPLY"
-      "value" = true
+      "value" = "true"
     }
     environment_variable {
       "name"  = "S3_BUCKET"
