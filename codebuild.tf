@@ -11,11 +11,13 @@ variable "public_key" {}
 variable "vpc_id" {}
 variable "terraform_version" {}
 variable "destroy_infrastructure_scenario" {
-  value = "false"
+  type = "string"
+  default = "false"
 }
 
 variable "destroy_infrastructure_scenario_after_build" {
-  value = "false"
+  type = "string"
+  default = "false"
 }
 
 variable "s3_bucket" {}
