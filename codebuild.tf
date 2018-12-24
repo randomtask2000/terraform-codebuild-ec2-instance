@@ -10,6 +10,13 @@ variable "aws_region" {}
 variable "public_key" {}
 variable "vpc_id" {}
 variable "terraform_version" {}
+variable "destroy_infrastructure_scenario" {
+  value = "false"
+}
+
+variable "destroy_infrastructure_scenario_after_build" {
+  value = "false"
+}
 
 variable "s3_bucket" {}
 
@@ -165,18 +172,18 @@ resource "aws_codebuild_project" "codebuild_project" {
     }
 
     environment_variable {
-      "name"  = "DESTROY_AFTER_APPLY"
-      "value" = "false"
-    }
-
-    environment_variable {
       "name"  = "S3_BUCKET"
       "value" = "${var.s3_bucket}"
     }
 
     environment_variable {
       "name" = "DESTROY"
-      "value" = "true"
+      "value" = "${var.destroy_infrastructure_scenario}"
+    }
+
+    environment_variable {
+      "name"  = "DESTROY_AFTER_APPLY"
+      "value" = "${var.destroy_infrastructure_scenario_after_build}"
     }
   }
 
@@ -248,12 +255,8 @@ resource "aws_security_group" "codebuild_ingress_egress" {
 output "region" {
   value = "${var.aws_region}"
 }
-output "aws_instance_vpc_id" {
+output "aws_vpc_id" {
   value = "${var.vpc_id}"
-}
-
-output "output_parameter" {
-  value = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/*"
 }
 
 data "aws_caller_identity" "current" {}
