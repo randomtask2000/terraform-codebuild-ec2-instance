@@ -20,6 +20,13 @@ variable "destroy_infrastructure_scenario_after_build" {
   default = "false"
 }
 
+variable "github_repo_to_be_build" {
+  type = "string"
+  default = "https://github.com/randomtask2000/terraform_ec2_instance.git"
+}
+
+data "aws_caller_identity" "current" {}
+
 variable "s3_bucket" {}
 
 #########################
@@ -191,7 +198,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/randomtask2000/terraform_ec2_instance.git"
+    location        = "${var.github_repo_to_be_build}"
     git_clone_depth = 1
   }
 
@@ -260,8 +267,6 @@ output "region" {
 output "aws_vpc_id" {
   value = "${var.vpc_id}"
 }
-
-data "aws_caller_identity" "current" {}
 
 output "account_id" {
   value = "${data.aws_caller_identity.current.account_id}"
