@@ -63,10 +63,9 @@ resource "aws_s3_bucket" "codebuild_bucket" {
   "Statement": [
     {
       "Effect":"Allow",
-      "Action":["s3:GetObject"],
+      "Action":["s3:GetObject", "s3:DeleteObject"],
       "Resource":["arn:aws:s3:::${var.s3_bucket}", "arn:aws:s3:::${var.s3_bucket}/*"],
-      "Principal": "*"
-      
+      "Principal": { "AWS": "${aws_iam_role.codebuild_role.arn}" }
     }
   ]
 }
@@ -75,6 +74,7 @@ EOF
     group = "codebuild"
   }
 }
+
 resource "aws_iam_role" "codebuild_role" {
   name = "codebuild_role"
 
@@ -288,4 +288,8 @@ output "account_id" {
 
 output "s3_bucket" {
   value = "${var.s3_bucket}"
+}
+
+output "role" {
+  value = "${aws_iam_role.codebuild_role.arn}"
 }
