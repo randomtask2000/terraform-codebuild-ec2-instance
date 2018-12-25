@@ -1,5 +1,4 @@
-# Create a new EC2 instance of the latest Ubuntu 14.04 on an
-# t2.micro node with an AWS tag naming it "Devbox"
+# Create an AWS CodeBuild project
 
 #########################
 # variables
@@ -28,6 +27,11 @@ variable "github_repo_to_be_build" {
 variable "codebuild_image" {
   type = "string"
   default = "aws/codebuild/ubuntu-base:14.04"
+}
+
+variable "debug" {
+  type = "string"
+  default = "true"
 }
 
 data "aws_caller_identity" "current" {}
@@ -198,6 +202,11 @@ resource "aws_codebuild_project" "codebuild_project" {
     environment_variable {
       "name"  = "DESTROY_AFTER_APPLY"
       "value" = "${var.destroy_infrastructure_scenario_after_build}"
+    }
+
+    environment_variable {
+      "name"  = "DEBUG"
+      "value" = "${var.debug}"
     }
   }
 
