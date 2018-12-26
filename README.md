@@ -1,4 +1,4 @@
-# Terraform ec2 instance with CodeBuild
+# Terraform ec2 instance with AWS CodeBuild
 Simple example of how to provision an EC2 instance with Terraform in AWS CodeBuild
 
 Create a settings file `terraform.auto.tfvars` with the following:
