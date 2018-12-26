@@ -1,7 +1,7 @@
 # Terraform ec2 instance with CodeBuild
-Simple example of how to provision an EC2 instance with Terraform with AWS CodeBuild
+Simple example of how to provision an EC2 instance with Terraform in AWS CodeBuild
 
-Create a settings file `terraform.auto.tfvars` that will configure access to your `AWS VPC` and let you `ssh` into your `EC2` instance after you're done:
+Create a settings file `terraform.auto.tfvars` with the following:
 ```
 echo <<< EOL
 aws_access_key = "XXXXXXXXXXXXXXXXXXXX"
@@ -14,6 +14,9 @@ t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
 mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
 NrRFi9wrf+M7Q== my@laptop.local"
 vpc_id = "vpc-00000000x00x0xxx0"
+terraform_version = "0.9.9"
+s3_bucket = "your-s3-bucket-terraform-state"
+debug = "true"
 EOL >> terraform.auto.tfvars;
 ```
 
@@ -27,5 +30,9 @@ To remove the instance you run:
 ```
 echo yes | terraform destroy
 ```
+
+After creating your infrastructure in AWS you should find your CodeBase project here:
+https://console.aws.amazon.com/codesuite/codebuild/projects?region=us-east-1 
+(Change your region in this URL to what you set your `aws_region` variable in your `tfvars` file to.)
 
 You're done and have fun!
