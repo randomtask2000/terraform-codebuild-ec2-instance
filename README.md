@@ -38,6 +38,9 @@ Your project in CodeBuild will look something like the image below:
 
 ![Your CodeBuild project](images/photo-2.jpeg)
 
+Select your project and click Start Build: ![Start Build in AWS CodeBuild](images/photo-3.jpeg)
+
+
 
 
 You're done and have fun!
