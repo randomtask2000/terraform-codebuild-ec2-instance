@@ -1,7 +1,7 @@
 # Run Terraform inside AWS CodeBuild as a build service
 This little repo illustrates how to build a `CodeBuild` project with `terraform` and run terraform inside of this project to build some infrastructure from another [repo](https://github.com/randomtask2000/terraform_ec2_instance). This other repo builds a simple `ec2` instance.
 
-##Config
+## Config
 Before running this terraform template, add the following terraform config file.
 
 Create a settings file `terraform.auto.tfvars` with the following:
@@ -23,7 +23,7 @@ debug = "true"
 EOL >> terraform.auto.tfvars;
 ```
 
-##Terraform apply
+## terraform apply
 After you're done creating the above file and adding your `aws access key`, `secret` and your `ssh public key`, run the following:
 ```
 terraform init
@@ -48,4 +48,7 @@ Select `Advanced build overrides`: ![Advanced Build Overrides in AWS CodeBuild](
 
 Unfold `Additional configuration` and edit any of the environment variables. Set the `DESTROY` variable to `true` if you would like to run a build cycle that destroys your infrastructure. ![Advanced Build Overrides in AWS CodeBuild and build environment settings](images/IMG_0265.png)
 
+Press `Start Builds.
+
+# And Bob's your uncle
 You're done and have fun!
