@@ -30,9 +30,14 @@ To remove the instance you run:
 ```
 echo yes | terraform destroy
 ```
-
-After creating your infrastructure in AWS you should find your CodeBase project here:
+The above `terraform apply` statement will create your project. After creating your project in AWS you should find your CodeBase project here:
 https://console.aws.amazon.com/codesuite/codebuild/projects?region=us-east-1 
 (Change your region in this URL to what you set your `aws_region` variable in your `tfvars` file to.)
+
+Your project in CodeBuild will look something like the image below:
+
+![Your CodeBuild project](photo-2.jpeg)
+
+
 
 You're done and have fun!
