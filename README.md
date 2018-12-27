@@ -36,7 +36,7 @@ https://console.aws.amazon.com/codesuite/codebuild/projects?region=us-east-1
 
 Your project in CodeBuild will look something like the image below:
 
-![Your CodeBuild project](photo-2.jpeg)
+![Your CodeBuild project](images/photo-2.jpeg)
 
 
 
