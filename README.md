@@ -48,7 +48,7 @@ Select `Advanced build overrides`: ![Advanced Build Overrides in AWS CodeBuild](
 
 Unfold `Additional configuration` and edit any of the environment variables. Set the `DESTROY` variable to `true` if you would like to run a build cycle that destroys your infrastructure. ![Advanced Build Overrides in AWS CodeBuild and build environment settings](images/IMG_0265.png)
 
-Press `Start Builds.
+Press `Start Builds`.
 
 # And Bob's your uncle
 You're done and have fun!
