@@ -2,7 +2,7 @@
 This little repo illustrates how to build a `CodeBuild` project with `terraform` and run terraform inside of this project to build some infrastructure from another [repo](https://github.com/randomtask2000/terraform_ec2_instance). This other repo builds a simple `ec2` instance.
 
 ## Config
-Before running this terraform template, add the following terraform config file.
+Before running this terraform template add the following terraform config file.
 
 Create a settings file `terraform.auto.tfvars` with the following:
 ```
@@ -30,11 +30,11 @@ terraform init
 terraform plan
 echo yes | terraform apply
 ```
-To remove the instance you run:
+To remove what you built run:
 ```
 echo yes | terraform destroy
 ```
-The above `terraform apply` statement will create your project. After creating your project in AWS you should find your CodeBase project here:
+The above `terraform apply` statement will create your CodeBuild project. After creating your project in AWS you should find your CodeBase project here:
 https://console.aws.amazon.com/codesuite/codebuild/projects?region=us-east-1 
 (Change your region in this URL to what you set your `aws_region` variable in your `tfvars` file to.)
 
