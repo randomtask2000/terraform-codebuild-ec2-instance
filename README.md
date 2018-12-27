@@ -1,5 +1,5 @@
-# Terraform ec2 instance with AWS CodeBuild
-Simple example of how to provision an EC2 instance with Terraform in AWS CodeBuild
+# Run Terraform inside AWS CodeBuild as a build service
+This little repo illustrates how to build a `CodeBuild` project with `terraform` and run `terraform` inside of CodeBuid to build some infrastructure from another repo. ![This](https://github.com/randomtask2000/terraform_ec2_instance) CodeBuild project provisions an EC2 instance.
 
 Create a settings file `terraform.auto.tfvars` with the following:
 ```
