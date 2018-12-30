@@ -40,6 +40,7 @@ The above `terraform apply` statement will create your CodeBuild project. After 
 https://console.aws.amazon.com/codesuite/codebuild/projects?region=us-east-1 
 (Change your region in this URL to what you set your `aws_region` variable in your `tfvars` file to.)
 
+## This bit is manual in AWS Console
 Your project in CodeBuild will look something like the image below:
 
 ![Your CodeBuild project](images/photo-2.jpeg)
