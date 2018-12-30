@@ -1,4 +1,4 @@
-[Terraform CodeBuild that Terraforms an EC2 Instance](images/photo-4.jpeg)
+![Terraform CodeBuild that Terraforms an EC2 Instance](images/photo-4.jpeg)
 
 # Use Terraform to build a CodeBuild project that runs terraform as a build service
 This little repo illustrates how to build a `CodeBuild` project with `terraform` and run terraform inside of this project to build infrastructure from another [repo](https://github.com/randomtask2000/terraform_ec2_instance). This other repo builds a simple `ec2` instance.
