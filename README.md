@@ -12,12 +12,7 @@ echo <<< EOL
 aws_access_key = "XXXXXXXXXXXXXXXXXXXX"
 aws_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 aws_region = "us-east-1"
-public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSU
-GPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3
-Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA
-t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
-mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
-NrRFi9wrf+M7Q== my@laptop.local"
+public_key = "ssh-rsa AAAAB3NzaC1yc....9wrf+M7Q== my@laptop.local"
 vpc_id = "vpc-00000000x00x0xxx0"
 terraform_version = "0.9.9"
 s3_bucket = "your-s3-bucket-terraform-state"
