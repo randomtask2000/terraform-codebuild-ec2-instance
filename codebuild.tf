@@ -1,55 +1,12 @@
 # Create an AWS CodeBuild project
 
 #########################
-# variables
-#########################
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
-variable "aws_region" {}
-variable "public_key" {}
-variable "vpc_id" {}
-variable "terraform_version" {}
-variable "destroy_infrastructure_scenario" {
-  type = "string"
-  default = "false"
-}
-
-variable "destroy_infrastructure_scenario_after_build" {
-  type = "string"
-  default = "false"
-}
-
-variable "github_repo_to_be_build" {
-  type = "string"
-  default = "https://github.com/randomtask2000/terraform_ec2_instance.git"
-}
-
-variable "codebuild_image" {
-  type = "string"
-  default = "aws/codebuild/ubuntu-base:14.04"
-}
-
-variable "debug" {
-  type = "string"
-  default = "true"
-}
-
-data "aws_caller_identity" "current" {}
-
-variable "s3_bucket" {}
-
-#########################
 # providers
 #########################
 provider "aws" {
   region     = "${var.aws_region}"
 }
-data "aws_vpc" "selected" {
-  id = "${var.vpc_id}"
-}
-data "aws_subnet_ids" "selected" {
-  vpc_id = "${data.aws_vpc.selected.id}"
-}
+
 #########################
 # resources
 #########################
@@ -270,26 +227,4 @@ resource "aws_security_group" "codebuild_ingress_egress" {
     Name = "cloudbuild"
     group = "cloudbuild"
   }
-}
-
-#########################
-# outputs
-#########################
-output "region" {
-  value = "${var.aws_region}"
-}
-output "aws_vpc_id" {
-  value = "${var.vpc_id}"
-}
-
-output "account_id" {
-  value = "${data.aws_caller_identity.current.account_id}"
-}
-
-output "s3_bucket" {
-  value = "${var.s3_bucket}"
-}
-
-output "role" {
-  value = "${aws_iam_role.codebuild_role.arn}"
 }
