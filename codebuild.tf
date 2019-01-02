@@ -173,58 +173,7 @@ resource "aws_codebuild_project" "codebuild_project" {
     git_clone_depth = 1
   }
 
-  # This needs more R&D
-  # vpc_config {
-  #   vpc_id = "${data.aws_vpc.selected.id}"
-  #   subnets = ["${data.aws_subnet_ids.selected.ids}"]
-  #   security_group_ids = ["${aws_security_group.codebuild_ingress_egress.id}"]
-  # }
-
   tags = {
     group = "codebuild"
-  }
-}
-
-# see here for VPC issues
-# https://stackoverflow.com/questions/52033869/download-source-failed-aws-codebuild
-# and buildspec file https://raw.githubusercontent.com/giuseppeborgese/run-terraform-inside-aws-codebuild/master/buildspec.yml 
-# and https://github.com/plus3it/terrafirm/blob/master/buildspec.yml
-resource "aws_security_group" "codebuild_ingress_egress" {
-  name        = "codebuild_ingress_egress"
-  description = "Allow cloudbuild with ssh mosh udp http test and egress all"
-  vpc_id = "${data.aws_vpc.selected.id}"
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port   = 60000
-    to_port     = 61000
-    protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port       = 0
-    to_port         = 80
-    protocol        = "tcp"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port       = 0
-    to_port         = 8080
-    protocol        = "tcp"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-  tags {
-    Name = "cloudbuild"
-    group = "cloudbuild"
   }
 }
